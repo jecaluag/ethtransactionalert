@@ -1,14 +1,19 @@
 /**
   * Channel name where the bot will listen to the message
   */
-export const CHANNEL_NAME = 'test-channel'
+export const CHANNEL_NAME = 'manage-wallets'
+
+/**
+ * Channel id where the bot will send the alert to
+ */
+export const ALERTS_CHANNEL_ID = '838310909238837278'
 
 /**
   * Allowed Roles
   */
 export const ROLES = [
   'Owner',
-  'Managers'
+  'CryptoLads'
 ]
 
 /**
@@ -19,12 +24,12 @@ export const PREFIX = "$";
 /**
  * Add wallet constants
  */
-export const ADD_WALLET = 'add'
+export const ADD_WALLET = 'add-wallet'
 
 /**
  * Delete wallet constants 
  */
-export const DEL_WALLET = 'del'
+export const DEL_WALLET = 'delete-wallet'
 
 /**
  * Name constants 
@@ -39,11 +44,6 @@ export const COMMANDS = [
   DEL_WALLET,
   NAME
 ]
-
-/**
- * Channel id where the bot will send the alert to
- */
-export const ALERTS_CHANNEL_ID = '837988537416155196'
 
 /**
  * Time interval between every wallet scan

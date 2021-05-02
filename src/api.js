@@ -18,7 +18,7 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to the database.')
     // deleteAll()
-    // runScheduler()
+    runScheduler()
     // setTimeout(() => testCreateAlert(), 1000)
   })
   .catch((err) => console.log(err))

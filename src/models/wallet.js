@@ -26,4 +26,5 @@ const walletSchema = new Schema({
 walletSchema.plugin(require('mongoose-beautiful-unique-validation'))
 
 const Wallet = mongoose.model('Wallet', walletSchema)
+
 export default Wallet
