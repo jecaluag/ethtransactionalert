@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import axios from 'axios'
 import { diff } from 'fast-array-diff'
 import moment from 'moment'
+import { v4 as uuidv4 } from 'uuid'
 
 import client from './app'
 import Wallet from './models/wallet'
@@ -177,24 +178,32 @@ async function scanSingleWallet (wallet) {
   let apiTransactions = await getTransactionsFromApi(address)
   apiTransactions = apiTransactions.map(transaction => {
     transaction.walletId = _id.toString()
+    transaction.uuid = uuidv4()
 
     return transaction
   })
   const dbTransactions = await getTransactionsFromDB(_id)
   if (dbTransactions.length === 0) return await saveTransactionsToDB(apiTransactions)
-  const apiTransactionHashes = apiTransactions.map(transaction => transaction.transactionHash)
-  const dbTransactionHashes = dbTransactions.map(transaction => transaction.transactionHash)
-  const { added } = diff(dbTransactionHashes, apiTransactionHashes)
+  const { added } = diff(dbTransactions, apiTransactions, compareTransactions)
   if (added.length === 0) return;
-  const newTransactions = []
-  for (const tx of added) {
-    const transaction = apiTransactions.find(apiTx => apiTx.transactionHash === tx)
-    newTransactions.push(transaction)
-  }
+  console.log('new transaction(s) found on address: ', address)
+  const newTransactions = [ ...added ]
   const result = await deleteTransactionsFromDB(dbTransactions)
   if (result === false) return;
   await saveTransactionsToDB(apiTransactions)
   await createAlerts(address, name, newTransactions)
+}
+
+/**
+ * Fast array diff compare method
+ * @param {*} dbTransactions 
+ * @param {*} apiTransactions 
+ * @returns 
+ */
+function compareTransactions (dbTransactions, apiTransactions) {
+  return (
+    dbTransactions.transactionHash === apiTransactions.transactionHash
+  )
 }
 
 /**

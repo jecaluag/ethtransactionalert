@@ -16,7 +16,8 @@ const transactionSchema = new Schema({
   to: String,
   addresses: [ String ],
   usdPrice: Number,
-  walletId: String
+  walletId: String,
+  uuid: String
 })
 
 const Transaction = mongoose.model('Transaction', transactionSchema)
