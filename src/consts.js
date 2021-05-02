@@ -48,7 +48,7 @@ export const ALERTS_CHANNEL_ID = '837988537416155196'
 /**
  * Time interval between every wallet scan
  */
-export const INTERVAL_TIME_MS = 2000
+export const INTERVAL_TIME_MS = 300000
 
 /**
  * List of response messages
