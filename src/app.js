@@ -1,7 +1,7 @@
 require('dotenv').config()
 import { Client } from 'discord.js'
 
-import { handleChannelMessage, handleAddWallet } from './bot'
+import { handleChannelMessage } from './bot'
 
 /**
  * Client instance

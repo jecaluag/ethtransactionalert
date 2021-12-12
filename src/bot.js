@@ -26,22 +26,31 @@ function checkRole (message) {
  * @returns 
  */
 function handleCommands (message) {
-  if (message.content.startsWith(PREFIX)) {
-    const cmnds = getCommandsFromMessage(message)
-    for (const command of cmnds) {
-      if (COMMANDS.includes(command.name) === false) return message.reply(MESSAGES.invCommand)
-      if (command.name === ADD_WALLET) {
-        if (command.value === undefined || command.value.length === 0) return message.reply(MESSAGES.noWallet)
-        const name = (cmnds.find(cmd => cmd.name === 'name') !== undefined)
-          ? (cmnds.find(cmd => cmd.name === 'name').value !== undefined)
-            ? cmnds.find(cmd => cmd.name === 'name').value : ''
-          : ''
-        handleAddWallet(command.value, name, message)
-      } else if (command.name === DEL_WALLET) {
-        if (command.value === undefined || command.value.length === 0) return message.reply(MESSAGES.noWallet)
-        handleDeleteWallet(command.value, message)
-      }
-    }
+  if (!message.content.startsWith(PREFIX)) return
+  const cmnds = getCommandsFromMessage(message)
+  for (const command of cmnds) {
+    handleRunCommand(command)
+  }
+}
+
+/**
+ * Handle running of command
+ * @param {*} command 
+ * @returns 
+ */
+function handleRunCommand (command) {
+  if (COMMANDS.includes(command.name) === false) return message.reply(MESSAGES.invCommand)
+  if (command.name === ADD_WALLET) {
+    if (command.value === undefined || command.value.length === 0) return message.reply(MESSAGES.noWallet)
+    const name = (cmnds.find(cmd => cmd.name === 'name') !== undefined)
+      ? (cmnds.find(cmd => cmd.name === 'name').value !== undefined)
+        ? cmnds.find(cmd => cmd.name === 'name').value : ''
+      : ''
+    handleAddWallet(command.value, name, message)
+  } 
+  if (command.name === DEL_WALLET) {
+    if (command.value === undefined || command.value.length === 0) return message.reply(MESSAGES.noWallet)
+    handleDeleteWallet(command.value, message)
   }
 }
 

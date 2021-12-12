@@ -240,37 +240,6 @@ async function createAlerts (address, name, newTransactions) {
 }
 
 /**
- * Test method for create alert message
- * @param {*} address 
- * @param {*} name 
- */
-function testCreateAlert (address = '0x8c3ea8cee69ce1fdae664cc68beea5ee8f773f82', name = 'Balor') {
-  const txType = 'Outgoing'
-  const tokenName = `Dai ($DAI)`
-  const channel = client.channels.cache.get(ALERTS_CHANNEL_ID)
-  const walletName = (name !== '') ? `named (${name}):` : ':'
-  const timestamp = moment.unix(1619927668).format('MMMM Do YYYY, h:mm:ss a')
-  const from = '0x8c3ea8cee69ce1fdae664cc68beea5ee8f773f82'
-  const exampleEmbed = new Discord.MessageEmbed()
-    .setColor('#00FF00')
-    .setAuthor(
-      `New transaction for wallet ${walletName} ${address}`, 
-      'https://cdn0.iconfinder.com/data/icons/security-double-color-red-and-black-vol-1/52/alarm__alert__light__emergency-512.png'
-    )
-    .setTitle(`**${txType}** transaction for **${tokenName}**`)
-    // .setURL(`https://etherscan.io/tx/0xe67565ec78f8446414aab20e959fb859ad89981492fbbb13696cb1d674434d74`)
-    .addFields(
-      { name: 'From:', value: `[${from}](https://etherscan.io/address/${from})`, inline: true },
-      { name: 'When:', value: `${timestamp}`, inline: true },
-      { name: 'To:', value: `0x1b067b25f6c9293361b0352b233cbfbd2ae7a676` },
-      { name: 'Tx:' ,value: `0xe67565ec78f8446414aab20e959fb859ad89981492fbbb13696cb1d674434d74` }
-    )
-    .setTimestamp()
-    channel.send('@everyone')
-    channel.send(exampleEmbed)
-}
-
-/**
  * Get transactions from api
  * @param {} address 
  * @returns 
